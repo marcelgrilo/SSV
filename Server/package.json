@@ -1,0 +1,18 @@
+{
+    "name": "ssv-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "ssv-server.js",
+    "dependencies":
+    {
+      "express": "^4.13.1",
+      "sqlite3": "^3.0.9"
+    },
+    "devDependencies": {},
+    "scripts":
+    {
+      "start": "node ssv-server.js"
+    },
+    "author": "https://github.com/marcelgrilo",
+    "license": "MIT"
+}
