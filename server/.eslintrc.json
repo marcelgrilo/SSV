@@ -1,0 +1,17 @@
+{
+  "extends": "airbnb",
+  "globals":{
+    "describe":true,
+    "it":true,
+    "expect":true,
+    "app":true,
+    "request":true,
+    "beforeEach":true,
+    "td":true,
+    "Joi":true,
+    "joiAssert":true,
+    "angular":true,
+    "scope":true,
+    "$scope":true
+  }
+}

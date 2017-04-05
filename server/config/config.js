@@ -6,9 +6,9 @@ export default {
     dialect: 'sqlite',
     storage: process.env.NODE_ENV ? 'test_ssv.sqlite' : 'ssv.sqlite',
     define: {
-      underscored: true
+      underscored: true,
     },
   },
-  jwtSecret: '$3cr3t'
+  jwtSecret: '$3cr3t',
   jetSession: { session: false },
-}
+};

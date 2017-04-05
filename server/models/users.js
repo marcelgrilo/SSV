@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-export default (sequelize, DataType) =>{
+export default (sequelize, DataType) => {
   const Users = sequelize.define('Users', {
     id: {
       type: DataType.INTEGER,
@@ -8,7 +8,7 @@ export default (sequelize, DataType) =>{
       autoIncrement: true,
     },
     login: {
-      type:DataType.STRING,
+      type: DataType.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -29,16 +29,16 @@ export default (sequelize, DataType) =>{
       },
     },
   },
-  {
-    hooks: {
-      beforeCreate: (user) => {
-        const salt = bcrypt.genSaltSync();
-        user.set('password', bcrypt.hashSync(user.password,salt));
+    {
+      hooks: {
+        beforeCreate: (user) => {
+          const salt = bcrypt.genSaltSync();
+          user.set('password', bcrypt.hashSync(user.password, salt));
+        },
       },
-    },
-    classMethods: {
-      isPassword: (encodedPassword, password) => bcrypt.compareSync(password,encodedPassword);
-    },
-  });
+      classMethods: {
+        isPassword: (encodedPassword, password) => bcrypt.compareSync(password, encodedPassword),
+      },
+    });
   return Users;
 };

@@ -1,0 +1,97 @@
+
+
+import httpStatus from 'http-status';
+
+describe('Routes Users', () => {
+  const Users = app.datasource.models.Users;
+
+  const defaultUser = {
+    id: 1,
+    name: 'Dafault User',
+    login: 'mei@iem.com',
+    password: 'test',
+  };
+
+  beforeEach((done) => {
+    Users
+      .destroy({ where: {} })
+      .then(() => Users.create(defaultUser))
+      .then(() => {
+        done();
+      });
+  });
+
+  describe('route GET /users', () => {
+    it('should return a list of Users', (done) => {
+      request
+        .get('/users')
+        .end((err, res) => {
+          expect(res.body[0].id).to.be.eql(defaultUser.id);
+          expect(res.body[0].name).to.be.eql(defaultUser.name);
+          expect(res.body[0].login).to.be.eql(defaultUser.login);
+          done(err);
+        });
+    });
+  });
+
+  describe('route GET /users/{id}', () => {
+    it('should return a user', (done) => {
+      request
+        .get('/users/1')
+        .end((err, res) => {
+          expect(res.body.id).to.be.eql(defaultUser.id);
+          expect(res.body.name).to.be.eql(defaultUser.name);
+          expect(res.body.login).to.be.eql(defaultUser.login);
+          done(err);
+        });
+    });
+  });
+
+  describe('route POST /users', () => {
+    it('should create a user', (done) => {
+      const newUser = {
+        id: 2,
+        name: 'Test User',
+        login: 'test@tset.com',
+        password: 'test',
+      };
+      request
+        .post('/users')
+        .send(newUser)
+        .end((err, res) => {
+          expect(res.body.id).to.be.eql(newUser.id);
+          expect(res.body.name).to.be.eql(newUser.name);
+          expect(res.body.login).to.be.eql(newUser.login);
+          done(err);
+        });
+    });
+  });
+
+  describe('route PUT /users/{id}', () => {
+    it('should update a user', (done) => {
+      const updatedUser = {
+        id: 1,
+        name: 'updated Dafault User',
+        login: 'updatedmei@iem.com',
+      };
+      request
+        .put('/users/1')
+        .send(updatedUser)
+        .end((err, res) => {
+          expect(res.body).to.be.eql([1]);
+          done(err);
+        });
+    });
+  });
+
+  describe('route DELETE /users/{id}', () => {
+    it('should delete a user', (done) => {
+      request
+        .delete('/users/1')
+        .end((err, res) => {
+          expect(res.statusCode).to.be.eql(httpStatus.NO_CONTENT);
+          done(err);
+        });
+    });
+  });
+});
