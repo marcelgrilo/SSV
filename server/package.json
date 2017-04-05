@@ -1,0 +1,24 @@
+{
+  "name": "ssv-server",
+  "version": "1.0.0",
+  "description": "sistema simples de venda",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/marcelgrilo/SSV"
+  },
+  "author": "marcelgrilo86@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0"
+  }
+}
