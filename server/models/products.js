@@ -21,19 +21,20 @@ export default (sequelize, DataType) => {
     },
     isDeleted: {
       type: DataType.BOOLEAN,
+      defaultValue: true,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
   },
-  {
-    classMethods: {
-      associate: (models) => {
-        Products.belongsTo(models.Users);
+    {
+      classMethods: {
+        associate: (models) => {
+          Products.belongsTo(models.Users);
+        },
       },
-    },
-  });
+    });
 
 
   return Products;

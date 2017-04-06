@@ -12,6 +12,7 @@ describe('Routes Users', () => {
     name: 'Default User',
     login: 'mei@iem.com',
     password: 'test',
+    isDeleted: false,
   };
 
   beforeEach((done) => {
@@ -33,6 +34,7 @@ describe('Routes Users', () => {
           expect(res.body[0].id).to.be.eql(defaultUser.id);
           expect(res.body[0].name).to.be.eql(defaultUser.name);
           expect(res.body[0].login).to.be.eql(defaultUser.login);
+          expect(res.body[0].isDeleted).to.be.eql(defaultUser.isDeleted);
 
           done(err);
         });
@@ -48,6 +50,7 @@ describe('Routes Users', () => {
           expect(res.body.id).to.be.eql(defaultUser.id);
           expect(res.body.name).to.be.eql(defaultUser.name);
           expect(res.body.login).to.be.eql(defaultUser.login);
+          expect(res.body.isDeleted).to.be.eql(defaultUser.isDeleted);
 
           done(err);
         });
@@ -61,6 +64,7 @@ describe('Routes Users', () => {
         name: 'new Default User',
         login: 'newmei@iem.com',
         password: 'test',
+        isDeleted: false,
       };
       request
         .post('/users')
@@ -69,6 +73,7 @@ describe('Routes Users', () => {
           expect(res.body.id).to.be.eql(newUser.id);
           expect(res.body.name).to.be.eql(newUser.name);
           expect(res.body.login).to.be.eql(newUser.login);
+          expect(res.body.isDeleted).to.be.eql(newUser.isDeleted);
 
           done(err);
         });
@@ -81,6 +86,7 @@ describe('Routes Users', () => {
         id: 1,
         name: 'updatedDefault User',
         login: 'updatedmei@iem.com',
+        isDeleted: false,
       };
       request
         .put('/users/1')

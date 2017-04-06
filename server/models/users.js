@@ -30,26 +30,27 @@ export default (sequelize, DataType) => {
     },
     isDeleted: {
       type: DataType.BOOLEAN,
+      defaultValue: true,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
   },
-  {
-    hooks: {
-      beforeCreate: (user) => {
-        const salt = bcrypt.genSaltSync();
-        user.set('password', bcrypt.hashSync(user.password, salt));
+    {
+      hooks: {
+        beforeCreate: (user) => {
+          const salt = bcrypt.genSaltSync();
+          user.set('password', bcrypt.hashSync(user.password, salt));
+        },
       },
-    },
-    classMethods: {
-      isPassword: (encodedPassword, password) => bcrypt.compareSync(password, encodedPassword),
-      associate: (models) => {
-        Users.hasMany(models.Products);
+      classMethods: {
+        isPassword: (encodedPassword, password) => bcrypt.compareSync(password, encodedPassword),
+        associate: (models) => {
+          Users.hasMany(models.Products);
+        },
       },
-    },
-  });
+    });
 
   return Users;
 };
