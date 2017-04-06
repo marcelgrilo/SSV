@@ -36,6 +36,12 @@ export default (app) => {
 
     database.models = loadModels(sequelize);
 
+    Object.keys(database.models).forEach((modelName) => {
+      if ('associate' in database.models[modelName]) {
+        database.models[modelName].associate(database.models);
+      }
+    });
+
     sequelize.sync().done(() =>
       // isto garante que cada vez que se iniciar a aplicaçao, o database será sincronizado
        database);
