@@ -1,3 +1,4 @@
+import httpStatus from 'http-status';
 import jwt from 'jwt-simple';
 
 describe('Routes Users', () => {
@@ -9,7 +10,7 @@ describe('Routes Users', () => {
   const defaultUser = {
     id: 1,
     name: 'Default User',
-    email: 'mei@iem.com',
+    login: 'mei@iem.com',
     password: 'test',
   };
 
@@ -19,7 +20,6 @@ describe('Routes Users', () => {
       .then(() => Users.create(defaultUser))
       .then((user) => {
         token = jwt.encode({ id: user.id }, jwtSecret);
-        console.log(token);
         done();
       });
   });
@@ -29,13 +29,14 @@ describe('Routes Users', () => {
       const usersList = Joi.array().items(Joi.object().keys({
         id: Joi.number(),
         name: Joi.string(),
-        email: Joi.string(),
+        login: Joi.string(),
         password: Joi.string(),
         created_at: Joi.date().iso(),
         updated_at: Joi.date().iso(),
       }));
       request
         .get('/users')
+        .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
           joiAssert(res.body, usersList);
           done(err);
@@ -48,13 +49,14 @@ describe('Routes Users', () => {
       const user = Joi.object().keys({
         id: Joi.number(),
         name: Joi.string(),
-        email: Joi.string(),
+        login: Joi.string(),
         password: Joi.string(),
         created_at: Joi.date().iso(),
         updated_at: Joi.date().iso(),
       });
       request
         .get('/users/1')
+        .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
           joiAssert(res.body, user);
           done(err);
@@ -67,14 +69,14 @@ describe('Routes Users', () => {
       const user = Joi.object().keys({
         id: Joi.number(),
         name: Joi.string(),
-        email: Joi.string(),
+        login: Joi.string(),
         password: Joi.string(),
         created_at: Joi.date().iso(),
         updated_at: Joi.date().iso(),
       });
       const newUser = {
         name: 'new Default User',
-        email: 'newmei@iem.com',
+        login: 'newmei@iem.com',
         password: 'test',
       };
       request
@@ -92,12 +94,13 @@ describe('Routes Users', () => {
       const updatedUser = {
         id: 1,
         name: 'updatedDefault User',
-        email: 'updatedmei@iem.com',
+        login: 'updatedmei@iem.com',
         password: 'newpsw',
       };
       const updatedCount = Joi.array().items(1);
       request
         .put('/users/1')
+        .set('Authorization', `JWT ${token}`)
         .send(updatedUser)
         .end((err, res) => {
           joiAssert(res.body, updatedCount);
@@ -110,8 +113,9 @@ describe('Routes Users', () => {
     it('should delete a user', (done) => {
       request
         .delete('/users/1')
+        .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
-          expect(res.statusCode).to.be.eql(204);
+          expect(res.statusCode).to.be.eql(httpStatus.NO_CONTENT);
           done(err);
         });
     });

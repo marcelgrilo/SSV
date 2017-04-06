@@ -1,13 +1,15 @@
-
-
 import httpStatus from 'http-status';
+import jwt from 'jwt-simple';
 
 describe('Routes Users', () => {
   const Users = app.datasource.models.Users;
+  const jwtSecret = app.config.jwtSecret;
+
+  let token;
 
   const defaultUser = {
     id: 1,
-    name: 'Dafault User',
+    name: 'Default User',
     login: 'mei@iem.com',
     password: 'test',
   };
@@ -16,43 +18,48 @@ describe('Routes Users', () => {
     Users
       .destroy({ where: {} })
       .then(() => Users.create(defaultUser))
-      .then(() => {
+      .then((user) => {
+        token = jwt.encode({ id: user.id }, jwtSecret);
         done();
       });
   });
 
-  describe('route GET /users', () => {
+  describe('Route GET /users', () => {
     it('should return a list of Users', (done) => {
       request
         .get('/users')
+        .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
           expect(res.body[0].id).to.be.eql(defaultUser.id);
           expect(res.body[0].name).to.be.eql(defaultUser.name);
           expect(res.body[0].login).to.be.eql(defaultUser.login);
+
           done(err);
         });
     });
   });
 
-  describe('route GET /users/{id}', () => {
+  describe('Route GET /users/{id}', () => {
     it('should return a user', (done) => {
       request
         .get('/users/1')
+        .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
           expect(res.body.id).to.be.eql(defaultUser.id);
           expect(res.body.name).to.be.eql(defaultUser.name);
           expect(res.body.login).to.be.eql(defaultUser.login);
+
           done(err);
         });
     });
   });
 
-  describe('route POST /users', () => {
+  describe('Route POST /users', () => {
     it('should create a user', (done) => {
       const newUser = {
         id: 2,
-        name: 'Test User',
-        login: 'test@tset.com',
+        name: 'new Default User',
+        login: 'newmei@iem.com',
         password: 'test',
       };
       request
@@ -62,20 +69,22 @@ describe('Routes Users', () => {
           expect(res.body.id).to.be.eql(newUser.id);
           expect(res.body.name).to.be.eql(newUser.name);
           expect(res.body.login).to.be.eql(newUser.login);
+
           done(err);
         });
     });
   });
 
-  describe('route PUT /users/{id}', () => {
+  describe('Route PUT /users/{id}', () => {
     it('should update a user', (done) => {
       const updatedUser = {
         id: 1,
-        name: 'updated Dafault User',
+        name: 'updatedDefault User',
         login: 'updatedmei@iem.com',
       };
       request
         .put('/users/1')
+        .set('Authorization', `JWT ${token}`)
         .send(updatedUser)
         .end((err, res) => {
           expect(res.body).to.be.eql([1]);
@@ -84,10 +93,11 @@ describe('Routes Users', () => {
     });
   });
 
-  describe('route DELETE /users/{id}', () => {
+  describe('Route DELETE /users/{id}', () => {
     it('should delete a user', (done) => {
       request
         .delete('/users/1')
+        .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
           expect(res.statusCode).to.be.eql(httpStatus.NO_CONTENT);
           done(err);

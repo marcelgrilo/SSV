@@ -9,6 +9,6 @@ export default {
       underscored: true,
     },
   },
-  jwtSecret: '$3cr3t',
-  jetSession: { session: false },
+  jwtSecret: 'S3cr3t',
+  jwtSession: { session: false },
 };

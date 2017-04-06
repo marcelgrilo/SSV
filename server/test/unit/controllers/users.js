@@ -1,3 +1,4 @@
+import httpStatus from 'http-status';
 import UsersController from '../../../controllers/users';
 
 describe('controllers User', () => {
@@ -10,7 +11,7 @@ describe('controllers User', () => {
       const expectedResponse = [{
         id: 1,
         name: 'test',
-        email: 'test@test.com',
+        login: 'test@test.com',
         password: 'test',
         created_at: '2017-03-25T18:42:01.6658',
         updated_at: '2017-03-25T18:42:01.6658',
@@ -33,7 +34,7 @@ describe('controllers User', () => {
       const expectedResponse = [{
         id: 1,
         name: 'test',
-        email: 'test@test.com',
+        login: 'test@test.com',
         password: 'test',
         created_at: '2017-03-25T18:42:01.6658',
         updated_at: '2017-03-25T18:42:01.6658',
@@ -55,14 +56,14 @@ describe('controllers User', () => {
 
       const requestBody = {
         name: 'newtest',
-        email: 'newtest@test.com',
+        login: 'newtest@test.com',
         password: 'newtest',
       };
 
       const expectedResponse = [{
         id: 1,
         name: 'test',
-        email: 'test@test.com',
+        login: 'test@test.com',
         password: 'test',
         created_at: '2017-03-25T18:42:01.6658',
         updated_at: '2017-03-25T18:42:01.6658',
@@ -87,14 +88,14 @@ describe('controllers User', () => {
 
       const requestBody = {
         name: 'newtest',
-        email: 'newtest@test.com',
+        login: 'newtest@test.com',
         password: 'newtest',
       };
 
       const expectedResponse = [{
         id: 1,
         name: 'test',
-        email: 'test@test.com',
+        login: 'test@test.com',
         password: 'test',
         created_at: '2017-03-25T18:42:01.6658',
         updated_at: '2017-03-25T18:42:01.6658',
@@ -118,7 +119,7 @@ describe('controllers User', () => {
 
       const usersController = new UsersController(Users);
       return usersController.delete({ id: 1 })
-        .then(response => expect(response.statusCode).to.be.eql(204));
+        .then(response => expect(response.statusCode).to.be.eql(httpStatus.NO_CONTENT));
     });
   });
 });
