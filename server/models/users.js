@@ -28,16 +28,9 @@ export default (sequelize, DataType) => {
         notEmpty: true,
       },
     },
-    isDeleted: {
-      type: DataType.BOOLEAN,
-      defaultValue: true,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
   },
     {
+      paranoid: true,
       hooks: {
         beforeCreate: (user) => {
           const salt = bcrypt.genSaltSync();

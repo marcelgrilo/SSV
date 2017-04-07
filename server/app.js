@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import config from './config/config';
 import datasource from './config/datasource';
 import usersRouter from './routes/users';
+import productsRouter from './routes/products';
 import authRouter from './routes/auth';
 import authorization from './auth';
 
@@ -24,6 +25,7 @@ app.auth = auth;
 
 // routes
 usersRouter(app);
+productsRouter(app);
 authRouter(app);
 
 // end

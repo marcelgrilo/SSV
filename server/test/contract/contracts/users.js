@@ -12,12 +12,11 @@ describe('Routes Users', () => {
     name: 'Default User',
     login: 'mei@iem.com',
     password: 'test',
-    isDeleted: false,
   };
 
   beforeEach((done) => {
     Users
-      .destroy({ where: {} })
+      .destroy({ where: {}, force: true })
       .then(() => Users.create(defaultUser))
       .then((user) => {
         token = jwt.encode({ id: user.id }, jwtSecret);
@@ -32,7 +31,7 @@ describe('Routes Users', () => {
         name: Joi.string(),
         login: Joi.string(),
         password: Joi.string(),
-        isDeleted: Joi.boolean(),
+        deleted_at: Joi.date().iso().allow(null),
         created_at: Joi.date().iso(),
         updated_at: Joi.date().iso(),
       }));
@@ -53,7 +52,7 @@ describe('Routes Users', () => {
         name: Joi.string(),
         login: Joi.string(),
         password: Joi.string(),
-        isDeleted: Joi.boolean(),
+        deleted_at: Joi.date().iso().allow(null),
         created_at: Joi.date().iso(),
         updated_at: Joi.date().iso(),
       });
@@ -74,7 +73,7 @@ describe('Routes Users', () => {
         name: Joi.string(),
         login: Joi.string(),
         password: Joi.string(),
-        isDeleted: Joi.boolean(),
+        deleted_at: Joi.date().iso().allow(null),
         created_at: Joi.date().iso(),
         updated_at: Joi.date().iso(),
       });
@@ -100,7 +99,6 @@ describe('Routes Users', () => {
         name: 'updatedDefault User',
         login: 'updatedmei@iem.com',
         password: 'newpsw',
-        isDeleted: false,
       };
       const updatedCount = Joi.array().items(1);
       request

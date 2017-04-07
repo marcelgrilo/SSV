@@ -19,16 +19,9 @@ export default (sequelize, DataType) => {
         notEmpty: true,
       },
     },
-    isDeleted: {
-      type: DataType.BOOLEAN,
-      defaultValue: true,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
   },
     {
+      paranoid: true,
       classMethods: {
         associate: (models) => {
           Products.belongsTo(models.Users);
