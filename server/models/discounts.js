@@ -1,5 +1,5 @@
 export default (sequelize, DataType) => {
-  const Clients = sequelize.define('Clients', {
+  const Discounts = sequelize.define('Discounts', {
     id: {
       type: DataType.INTEGER,
       primaryKey: true,
@@ -12,23 +12,23 @@ export default (sequelize, DataType) => {
         notEmpty: true,
       },
     },
-    tell: {
-      type: DataType.STRING,
-    },
-    cell: {
-      type: DataType.STRING,
+    value: {
+      type: DataType.FLOAT,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
   },
     {
       paranoid: true,
       classMethods: {
         associate: (models) => {
-          Clients.belongsTo(models.Users);
-          Clients.hasMany(models.Addresses);
+          Discounts.belongsTo(models.Users);
         },
       },
     });
 
 
-  return Clients;
+  return Discounts;
 };
