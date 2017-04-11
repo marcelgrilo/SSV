@@ -54,22 +54,35 @@ describe('Routes Clients', () => {
 
   describe('Route GET /clients', () => {
     it('should return a list of Clients', (done) => {
+      const clientsList = Joi.array().items(Joi.object().keys({
+        id: Joi.number(),
+        name: Joi.string(),
+        tell: Joi.string().allow(null),
+        cell: Joi.string().allow(null),
+        Addresses: Joi.array().items(Joi.object().keys({
+          id: Joi.number(),
+          street: Joi.string(),
+          number: Joi.number(),
+          neightborhood: Joi.string(),
+          city: Joi.string(),
+          reference: Joi.string().allow(null),
+          tell: Joi.string().allow(null),
+          deleted_at: Joi.date().allow(null),
+          created_at: Joi.date().iso(),
+          updated_at: Joi.date().iso(),
+          client_id: Joi.number().allow(null),
+        })),
+        user_id: Joi.number().allow(null),
+        deleted_at: Joi.date().allow(null),
+        created_at: Joi.date().iso(),
+        updated_at: Joi.date().iso(),
+      }));
+
       request
         .get('/clients')
         .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
-          expect(res.body[0].id).to.be.eql(defaultClient.id);
-          expect(res.body[0].name).to.be.eql(defaultClient.name);
-          expect(res.body[0].tell).to.be.eql(defaultClient.tell);
-          expect(res.body[0].cell).to.be.eql(defaultClient.cell);
-          expect(res.body[0].Addresses.city).to.be.eql(defaultClient.Addresses.city);
-          expect(res.body[0].Addresses.neightborhood).to.be.eql(
-            defaultClient.Addresses.neightborhood,
-          );
-          expect(res.body[0].Addresses.street).to.be.eql(defaultClient.Addresses.street);
-          expect(res.body[0].Addresses.number).to.be.eql(defaultClient.Addresses.number);
-          expect(res.body[0].Addresses.reference).to.be.eql(defaultClient.Addresses.reference);
-          expect(res.body[0].Addresses.tell).to.be.eql(defaultClient.Addresses.tell);
+          joiAssert(res.body, clientsList);
           done(err);
         });
     });
@@ -77,23 +90,35 @@ describe('Routes Clients', () => {
 
   describe('Route GET /clients/{id}', () => {
     it('should return a client', (done) => {
+      const client = Joi.object().keys({
+        id: Joi.number(),
+        name: Joi.string(),
+        tell: Joi.string().allow(null),
+        cell: Joi.string().allow(null),
+        Addresses: Joi.array().items(Joi.object().keys({
+          id: Joi.number(),
+          street: Joi.string(),
+          number: Joi.number(),
+          neightborhood: Joi.string(),
+          city: Joi.string(),
+          reference: Joi.string().allow(null),
+          tell: Joi.string().allow(null),
+          deleted_at: Joi.date().allow(null),
+          created_at: Joi.date().iso(),
+          updated_at: Joi.date().iso(),
+          client_id: Joi.number().allow(null),
+        })),
+        user_id: Joi.number().allow(null),
+        deleted_at: Joi.date().allow(null),
+        created_at: Joi.date().iso(),
+        updated_at: Joi.date().iso(),
+      });
+
       request
         .get('/clients/1')
         .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
-          expect(res.body.id).to.be.eql(defaultClient.id);
-          expect(res.body.name).to.be.eql(defaultClient.name);
-          expect(res.body.tell).to.be.eql(defaultClient.tell);
-          expect(res.body.cell).to.be.eql(defaultClient.cell);
-          expect(res.body.Addresses.city).to.be.eql(defaultClient.Addresses.city);
-          expect(res.body.Addresses.neightborhood).to.be.eql(
-            defaultClient.Addresses.neightborhood,
-          );
-          expect(res.body.Addresses.street).to.be.eql(defaultClient.Addresses.street);
-          expect(res.body.Addresses.number).to.be.eql(defaultClient.Addresses.number);
-          expect(res.body.Addresses.reference).to.be.eql(defaultClient.Addresses.reference);
-          expect(res.body.Addresses.tell).to.be.eql(defaultClient.Addresses.tell);
-
+          joiAssert(res.body, client);
           done(err);
         });
     });
@@ -101,6 +126,30 @@ describe('Routes Clients', () => {
 
   describe('Route POST /clients', () => {
     it('should create a client', (done) => {
+      const client = Joi.object().keys({
+        id: Joi.number(),
+        name: Joi.string(),
+        tell: Joi.string().allow(null),
+        cell: Joi.string().allow(null),
+        Addresses: Joi.array().items(Joi.object().keys({
+          id: Joi.number(),
+          street: Joi.string(),
+          number: Joi.number(),
+          neightborhood: Joi.string(),
+          city: Joi.string(),
+          reference: Joi.string().allow(null),
+          tell: Joi.string().allow(null),
+          deleted_at: Joi.date().allow(null),
+          created_at: Joi.date().iso(),
+          updated_at: Joi.date().iso(),
+          client_id: Joi.number().allow(null),
+        })),
+        user_id: Joi.number().allow(null),
+        deleted_at: Joi.date().allow(null),
+        created_at: Joi.date().iso(),
+        updated_at: Joi.date().iso(),
+      });
+
       const newClient = {
         id: 2,
         name: 'new client',
@@ -115,22 +164,12 @@ describe('Routes Clients', () => {
           tell: '765890432',
         }],
       };
+
       request
         .post('/clients')
-        .set('Authorization', `JWT ${token}`)
         .send(newClient)
         .end((err, res) => {
-          expect(res.body.id).to.be.eql(newClient.id);
-          expect(res.body.name).to.be.eql(newClient.name);
-          expect(res.body.price).to.be.eql(newClient.price);
-          expect(res.body.isDeleted).to.be.eql(newClient.isDeleted);
-          expect(res.body.Addresses.city).to.be.eql(newClient.Addresses.city);
-          expect(res.body.Addresses.neightborhood).to.be.eql(newClient.Addresses.neightborhood);
-          expect(res.body.Addresses.street).to.be.eql(newClient.Addresses.street);
-          expect(res.body.Addresses.number).to.be.eql(newClient.Addresses.number);
-          expect(res.body.Addresses.reference).to.be.eql(newClient.Addresses.reference);
-          expect(res.body.Addresses.tell).to.be.eql(newClient.Addresses.tell);
-
+          joiAssert(res.body, client);
           done(err);
         });
     });
@@ -144,12 +183,15 @@ describe('Routes Clients', () => {
         tell: '123456',
         cell: '123564987',
       };
+
+      const updatedCount = Joi.array().items(1);
+
       request
         .put('/clients/1')
         .set('Authorization', `JWT ${token}`)
         .send(updatedClient)
         .end((err, res) => {
-          expect(res.body).to.be.eql([1]);
+          joiAssert(res.body, updatedCount);
           done(err);
         });
     });

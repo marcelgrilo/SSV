@@ -22,22 +22,21 @@ class ClientsController {
   }
 
   getById(params) {
-    return this.Clients.findOne({ where: params, include: [this.Addresses]  })
+    return this.Clients.findOne({ where: params, include: [this.Addresses] })
       .then(result => defaultResponse(result))
       .catch(error => errorResponse(error.message));
   }
 
   create(data) {
-    if(data.Addresses){
-        return this.Clients.create(data, {include: [this.Addresses] })
+    if (data.Addresses) {
+      return this.Clients.create(data, { include: [this.Addresses] })
         .then(result => defaultResponse(result, HttpStatus.CREATED))
         .catch(error => errorResponse(error.message, HttpStatus.UNPROCESSABLE_ENTITY));
     }
-    else{
-      return this.Clients.create(data)
+
+    return this.Clients.create(data)
       .then(result => defaultResponse(result, HttpStatus.CREATED))
       .catch(error => errorResponse(error.message, HttpStatus.UNPROCESSABLE_ENTITY));
-    }
   }
 
   update(data, params) {

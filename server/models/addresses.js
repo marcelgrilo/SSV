@@ -44,7 +44,7 @@ export default (sequelize, DataType) => {
       paranoid: true,
       classMethods: {
         associate: (models) => {
-          Addresses.belongsTo(models.Clients, {foreignKey : 'client_id'});
+          Addresses.belongsTo(models.Clients, { foreignKey: 'client_id' });
         },
       },
     });
