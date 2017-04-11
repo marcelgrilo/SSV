@@ -73,8 +73,8 @@ describe('controllers Clients', () => {
       }];
 
       td.when(
-        Client.findOne({ where: { id: 1 }, include: [Address] }),
-      ).thenResolve(expectedResponse);
+        Client.findOne({ where: { id: 1 }, include: [Address] }))
+        .thenResolve(expectedResponse);
 
       const clientController = new ClientController(Client, Address);
       return clientController.getById({ id: 1 })

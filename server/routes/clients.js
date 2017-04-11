@@ -3,8 +3,7 @@ import ClientssController from '../controllers/clients';
 export default (app) => {
   const clientsController = new ClientssController(
     app.datasource.models.Clients,
-    app.datasource.models.Addresses,
-  );
+    app.datasource.models.Addresses);
 
   app.route('/clients')
     .get(app.auth.authenticate(), (req, res) => {

@@ -64,8 +64,7 @@ describe('Routes Clients', () => {
           expect(res.body[0].cell).to.be.eql(defaultClient.cell);
           expect(res.body[0].Addresses.city).to.be.eql(defaultClient.Addresses.city);
           expect(res.body[0].Addresses.neightborhood).to.be.eql(
-            defaultClient.Addresses.neightborhood,
-          );
+            defaultClient.Addresses.neightborhood);
           expect(res.body[0].Addresses.street).to.be.eql(defaultClient.Addresses.street);
           expect(res.body[0].Addresses.number).to.be.eql(defaultClient.Addresses.number);
           expect(res.body[0].Addresses.reference).to.be.eql(defaultClient.Addresses.reference);
@@ -87,8 +86,7 @@ describe('Routes Clients', () => {
           expect(res.body.cell).to.be.eql(defaultClient.cell);
           expect(res.body.Addresses.city).to.be.eql(defaultClient.Addresses.city);
           expect(res.body.Addresses.neightborhood).to.be.eql(
-            defaultClient.Addresses.neightborhood,
-          );
+            defaultClient.Addresses.neightborhood);
           expect(res.body.Addresses.street).to.be.eql(defaultClient.Addresses.street);
           expect(res.body.Addresses.number).to.be.eql(defaultClient.Addresses.number);
           expect(res.body.Addresses.reference).to.be.eql(defaultClient.Addresses.reference);
