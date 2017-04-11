@@ -24,7 +24,7 @@ describe('Routes Clients', () => {
       neightborhood: 'dsa',
       city: 'sda',
       reference:'sss',
-      tel: '123456',
+      tell: '123456',
     },
       {
         street: 'qwe',
@@ -108,7 +108,7 @@ describe('Routes Clients', () => {
           neightborhood: 'tyuio',
           city: 'yuit',
           reference:'uuu',
-          tel: '765890432',
+          tell: '765890432',
         }],
       };
       request
@@ -138,7 +138,7 @@ describe('Routes Clients', () => {
         id: 1,
         name: 'updatedDefault Client',
         tell: "123456",
-        cel: "123564987",
+        cell: "123564987",
       };
       request
         .put('/clients/1')
