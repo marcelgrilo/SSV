@@ -24,7 +24,7 @@ export default (sequelize, DataType) => {
       classMethods: {
         associate: (models) => {
           Clients.belongsTo(models.Users);
-          Clients.hasMany(models.Addresses);
+          Clients.hasMany(models.Addresses, {foreignKey : 'client_id'});
         },
       },
     });

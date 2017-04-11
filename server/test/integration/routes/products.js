@@ -43,7 +43,6 @@ describe('Routes Products', () => {
           expect(res.body[0].id).to.be.eql(defaultProduct.id);
           expect(res.body[0].name).to.be.eql(defaultProduct.name);
           expect(res.body[0].price).to.be.eql(defaultProduct.price);
-          expect(res.body[0].isDeleted).to.be.eql(defaultProduct.isDeleted);
 
           done(err);
         });
@@ -59,7 +58,6 @@ describe('Routes Products', () => {
           expect(res.body.id).to.be.eql(defaultProduct.id);
           expect(res.body.name).to.be.eql(defaultProduct.name);
           expect(res.body.price).to.be.eql(defaultProduct.price);
-          expect(res.body.isDeleted).to.be.eql(defaultProduct.isDeleted);
 
           done(err);
         });
@@ -81,7 +79,6 @@ describe('Routes Products', () => {
           expect(res.body.id).to.be.eql(newProduct.id);
           expect(res.body.name).to.be.eql(newProduct.name);
           expect(res.body.price).to.be.eql(newProduct.price);
-          expect(res.body.isDeleted).to.be.eql(newProduct.isDeleted);
 
           done(err);
         });

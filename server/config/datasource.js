@@ -25,7 +25,7 @@ export default (app) => {
       config.database,
       config.username,
       config.password,
-      config.params,
+      config.params
     );
 
     database = {

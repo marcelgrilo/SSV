@@ -36,7 +36,7 @@ export default (sequelize, DataType) => {
     reference: {
       type: DataType.STRING,
     },
-    tel: {
+    tell: {
       type: DataType.STRING,
     },
   },
@@ -44,7 +44,7 @@ export default (sequelize, DataType) => {
       paranoid: true,
       classMethods: {
         associate: (models) => {
-          Addresses.belongsTo(models.Clients);
+          Addresses.belongsTo(models.Clients, {foreignKey : 'client_id'});
         },
       },
     });

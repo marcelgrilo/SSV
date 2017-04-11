@@ -5,6 +5,7 @@ import config from './config/config';
 import datasource from './config/datasource';
 import usersRouter from './routes/users';
 import productsRouter from './routes/products';
+import clientsRouter from './routes/clients';
 import authRouter from './routes/auth';
 import authorization from './auth';
 
@@ -26,6 +27,7 @@ app.auth = auth;
 // routes
 usersRouter(app);
 productsRouter(app);
+clientsRouter(app);
 authRouter(app);
 
 // end
